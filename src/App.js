@@ -27,17 +27,16 @@ powerHandler = () => {
   });
 };
 
-nameHandler = (event) => {
-  this.setState({  persons: [
-      { name: 'Sergio Olivia',age: Math.round(Math.random(30)* 40)},
-      { name: event.target.value ,age: Math.round(Math.random(30)* 40)}
-    ]
-  });
-};
 
 userNameChange = (event) => {
   this.setState({username: event.target.value});
 };
+
+deleteNameHandler = (nameIndex) => {
+  const persons = this.state.persons;
+  persons.splice(nameIndex, 1);
+  this.setState({persons:persons})
+}
 
   render() {
     const card = {
@@ -52,8 +51,11 @@ userNameChange = (event) => {
     if (this.state.showPerson){
       persons = (
         <div>
-          {this.state.persons.map(person => {
-            return <Person name={person.name} age={person.age} />
+          {this.state.persons.map((person, index) => {
+            return <Person
+            click={() => this.deleteNameHandler(index)}
+            name={person.name}
+            age={person.age} />
           })}
         </div>
       )
