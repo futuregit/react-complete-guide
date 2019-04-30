@@ -40,46 +40,45 @@ userNameChange = (event) => {
 };
 
   render() {
-    const style = {
-      backgroundColor: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer'
-    };
     const card = {
       backgroundColor: 'gray',
       fontColor: 'inherit',
       border: '3px solid blue',
       padding: '8px'
+    };
+
+    let persons = null;
+
+    if (this.state.showPerson){
+      persons = (
+        <div>
+          <Person
+            name={this.state.persons[0].name}
+            age={this.state.persons[0].age} />
+          <Person
+            name={this.state.persons[1].name}
+            age={this.state.persons[1].age}
+            click={this.powerHandler}
+            change={this.nameHandler}>Who?
+          </Person>
+          <UserInput
+            change={this.userNameChange}
+            name={this.state.username}
+          />
+          <UserOutput
+            style={card}
+            name={this.state.username}/>
+          <UserOutput />
+        </div>
+      )
     }
+
     return (
       <div className="App">
       <h1>This is my first React</h1>
         <button
-
           onClick={this.toggleHandler}>Power on</button>
-
-            <div>
-              <Person
-                name={this.state.persons[0].name}
-                age={this.state.persons[0].age} />
-              <Person
-                name={this.state.persons[1].name}
-                age={this.state.persons[1].age}
-                click={this.powerHandler}
-                change={this.nameHandler}>Who?
-              </Person>
-              <UserInput
-                change={this.userNameChange}
-                name={this.state.username}
-              />
-              <UserOutput
-                style={card}
-                name={this.state.username}/>
-              <UserOutput />
-            </div>
-      
+        {persons}
       </div>
     );
   }
