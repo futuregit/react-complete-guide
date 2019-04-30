@@ -6,8 +6,8 @@ import UserOutput from './UserOutput/UserOutput';
 class App extends Component {
   state = {
     persons: [
-      { name: 'Arnold',age: Math.round(Math.random(30)* 40)},
-      { name: 'Alex',age: Math.round(Math.random(30)* 40)}
+      { id: 'riker', name: 'Arnold',age: Math.round(Math.random(30)* 40)},
+      { id: 'data', name: 'Alex',age: Math.round(Math.random(30)* 40)}
     ],
     username: "Admin",
     showPerson: false
@@ -33,7 +33,8 @@ userNameChange = (event) => {
 };
 
 deleteNameHandler = (nameIndex) => {
-  //This is even better. It uses ES6 spread operator.
+  //This is the same as the slice method, but it is more modern Es6 approach.
+  // It uses ES6 spread operator.
   const persons = [...this.state.persons]
   //Use this as the original is not mutated.
   //const persons = this.state.persons.slice();
@@ -61,7 +62,8 @@ deleteNameHandler = (nameIndex) => {
             return <Person
             click={() => this.deleteNameHandler(index)}
             name={person.name}
-            age={person.age} />
+            age={person.age}
+            key={person.id}/>
           })}
         </div>
       )
