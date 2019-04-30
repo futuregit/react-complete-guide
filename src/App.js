@@ -33,12 +33,18 @@ userNameChange = (event) => {
 };
 
 deleteNameHandler = (nameIndex) => {
-  const persons = this.state.persons;
+  //This is even better. It uses ES6 spread operator.
+  const persons = [...this.state.persons]
+  //Use this as the original is not mutated.
+  //const persons = this.state.persons.slice();
+  //Below mutate orginal object. Avoid this.
+  // const persons = this.state.persons;
   persons.splice(nameIndex, 1);
   this.setState({persons:persons})
 }
 
   render() {
+    // Describing how divs should appear as cards.
     const card = {
       backgroundColor: 'gray',
       fontColor: 'inherit',
