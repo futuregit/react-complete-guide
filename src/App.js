@@ -52,23 +52,9 @@ userNameChange = (event) => {
     if (this.state.showPerson){
       persons = (
         <div>
-          <Person
-            name={this.state.persons[0].name}
-            age={this.state.persons[0].age} />
-          <Person
-            name={this.state.persons[1].name}
-            age={this.state.persons[1].age}
-            click={this.powerHandler}
-            change={this.nameHandler}>Who?
-          </Person>
-          <UserInput
-            change={this.userNameChange}
-            name={this.state.username}
-          />
-          <UserOutput
-            style={card}
-            name={this.state.username}/>
-          <UserOutput />
+          {this.state.persons.map(person => {
+            return <Person name={person.name} age={person.age} />
+          })}
         </div>
       )
     }
