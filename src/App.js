@@ -57,10 +57,9 @@ userNameChange = (event) => {
       <div className="App">
       <h1>This is my first React</h1>
         <button
-          
+
           onClick={this.toggleHandler}>Power on</button>
-        {
-          this.state.showPerson === true ?
+
             <div>
               <Person
                 name={this.state.persons[0].name}
@@ -79,9 +78,8 @@ userNameChange = (event) => {
                 style={card}
                 name={this.state.username}/>
               <UserOutput />
-            </div> : null
-        }
-
+            </div>
+      
       </div>
     );
   }
