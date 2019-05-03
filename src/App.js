@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import Radium from 'radium/';
+import Radium, { StyleRoot } from 'radium/';
 import Person from './Person/Person';
 import UserInput from './UserInput/UserInput';
 import UserOutput from './UserOutput/UserOutput';
@@ -112,14 +112,16 @@ deleteNameHandler = (nameIndex) => {
       classes.push('bold');
     }
     return (
-      <div className="App">
-      <h1>This is My First React App</h1>
-      <p className={classes.join(' ')}>This is working alright</p>
-        <button
-          style={style}
-          onClick={this.toggleHandler}>Power on</button>
-        {persons}
-      </div>
+      <StyleRoot>
+        <div className="App">
+          <h1>This is My First React App</h1>
+          <p className={classes.join(' ')}>This is working alright</p>
+            <button
+              style={style}
+              onClick={this.toggleHandler}>Power on</button>
+            {persons}
+        </div>
+      </StyleRoot>
     );
   }
 }
