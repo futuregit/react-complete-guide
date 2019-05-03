@@ -7,7 +7,8 @@ class App extends Component {
   state = {
     persons: [
       { id: 'riker', name: 'Arnold',age: Math.round(Math.random(30)* 40)},
-      { id: 'data', name: 'Alex',age: Math.round(Math.random(30)* 40)}
+      { id: 'data', name: 'Alex',age: Math.round(Math.random(30)* 40)},
+      {id: 'worf', name: 'Lt', age: Math.round(Math.random(30) * 40)}
     ],
     username: "Admin",
     showPerson: false
@@ -19,12 +20,24 @@ toggleHandler = () => {
   this.setState({showPerson: !reveal})
 };
 
-powerHandler = () => {
-  this.setState({  persons: [
-      { name: 'Lou Ferrigino',age: Math.round(Math.random(30)* 40)},
-      { name: 'Franco Columbu',age: Math.round(Math.random(30)* 40)}
-    ]
-  });
+powerHandler = (event, id) => {
+    const personIndex = this.state.persons.findIndex(p => {
+      return p.id === id;
+    });
+
+    const person = {
+      ...this.state.persons[personIndex]
+    }
+
+    //An alternative to copying an object without reference.
+    //const person = Object.assign({}, this.state.persons[personIndex]);
+
+    person.name = event.target.value;
+
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+
+    this.setState({persons: persons});
 };
 
 
@@ -53,6 +66,14 @@ deleteNameHandler = (nameIndex) => {
       padding: '8px'
     };
 
+    const style =  {
+      backgroundColor: 'green',
+      border: 'none',
+      color: 'white',
+      padding: '15px 32px',
+      display: 'inline-block',
+      cursor: 'pointer'
+  };
     let persons = null;
 
     if (this.state.showPerson){
@@ -63,16 +84,21 @@ deleteNameHandler = (nameIndex) => {
             click={() => this.deleteNameHandler(index)}
             name={person.name}
             age={person.age}
-            key={person.id}/>
+            key={person.id}
+            changed={(event) => this.powerHandler(event, person.id)}/>
           })}
         </div>
-      )
+      );
+
+      style.backgroundColor = 'red';
+
     }
 
     return (
       <div className="App">
       <h1>This is my first React</h1>
         <button
+          style={style}
           onClick={this.toggleHandler}>Power on</button>
         {persons}
       </div>

@@ -3,11 +3,11 @@ import  './Person.css';
 
 const person = (props) => {
   return (
-    <div className="Person" onClick={props.click}>
-      <div>This is the person module and the name chosen is {props.name}</div>
-      <div>Wow that was easy {props.age}</div>
-      <div>{props.children}</div>
-      <input type="test" onChange={props.change} value={props.name} />
+    <div className="Person" >
+      <p onClick={props.click}>This is the person module and the name chosen is {props.name}</p>
+      <p>Wow that was easy {props.age}</p>
+      <p>{props.children}</p>
+      <input type="test" onChange={props.changed} value={props.name} />
     </div>
   )
 };
