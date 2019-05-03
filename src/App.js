@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import classes from './App.css';
 import Person from './Person/Person';
 import UserInput from './UserInput/UserInput';
 import UserOutput from './UserOutput/UserOutput';
@@ -72,7 +72,7 @@ deleteNameHandler = (nameIndex) => {
       color: 'white',
       padding: '15px 32px',
       display: 'inline-block',
-      cursor: 'pointer'    
+      cursor: 'pointer'
   };
     let persons = null;
 
@@ -95,17 +95,17 @@ deleteNameHandler = (nameIndex) => {
     }
 
     // let classes = ['red', 'bold'].join(' ');
-    const classes =[];
+    const assignedClasses =[];
     if(this.state.persons.length <= 2){
-      classes.push('red');
+      assignedClasses.push(classes.red);
     }
     if(this.state.persons.length <= 1){
-      classes.push('bold');
+      assignedClasses.push(classes.bold);
     }
     return (
-      <div className="App">
+      <div className={classes.App}>
         <h1>This is My First React App</h1>
-        <p className={classes.join(' ')}>This is working alright</p>
+        <p className={assignedClasses.join(' ')}>This is working alright</p>
           <button
             style={style}
             onClick={this.toggleHandler}>Power on</button>
