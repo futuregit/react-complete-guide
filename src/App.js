@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import Radium, { StyleRoot } from 'radium/';
 import Person from './Person/Person';
 import UserInput from './UserInput/UserInput';
 import UserOutput from './UserOutput/UserOutput';
@@ -73,11 +72,7 @@ deleteNameHandler = (nameIndex) => {
       color: 'white',
       padding: '15px 32px',
       display: 'inline-block',
-      cursor: 'pointer',
-      ':hover': {
-        backgroundColor: 'lightgreen',
-        color: 'black'
-      }
+      cursor: 'pointer'    
   };
     let persons = null;
 
@@ -96,10 +91,6 @@ deleteNameHandler = (nameIndex) => {
       );
 
       style.backgroundColor = 'red';
-      style[':hover'] = {
-        backgroundColor: 'salmon',
-        color: 'black'
-      }
 
     }
 
@@ -112,18 +103,16 @@ deleteNameHandler = (nameIndex) => {
       classes.push('bold');
     }
     return (
-      <StyleRoot>
-        <div className="App">
-          <h1>This is My First React App</h1>
-          <p className={classes.join(' ')}>This is working alright</p>
-            <button
-              style={style}
-              onClick={this.toggleHandler}>Power on</button>
-            {persons}
-        </div>
-      </StyleRoot>
+      <div className="App">
+        <h1>This is My First React App</h1>
+        <p className={classes.join(' ')}>This is working alright</p>
+          <button
+            style={style}
+            onClick={this.toggleHandler}>Power on</button>
+        {persons}
+      </div>
     );
   }
 }
 
-export default Radium(App);
+export default App;
