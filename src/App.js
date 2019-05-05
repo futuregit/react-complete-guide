@@ -11,7 +11,8 @@ class App extends Component {
       {id: 'worf', name: 'Lt', age: Math.round(Math.random(30) * 40)}
     ],
     username: "Admin",
-    showPerson: false
+    showPerson: false,
+    power: 'Power On'
   }
 
 toggleHandler = () => {
@@ -20,7 +21,8 @@ toggleHandler = () => {
   this.setState({showPerson: !reveal})
 };
 
-powerHandler = (event, id) => {
+//
+nameChangeHandler = (event, id) => {
     const personIndex = this.state.persons.findIndex(p => {
       return p.id === id;
     });
@@ -58,24 +60,10 @@ deleteNameHandler = (nameIndex) => {
 }
 
   render() {
-    // Describing how divs should appear as cards.
-    const card = {
-      backgroundColor: 'gray',
-      fontColor: 'inherit',
-      border: '3px solid blue',
-      padding: '8px'
-    };
 
-    const style =  {
-      backgroundColor: 'green',
-      border: 'none',
-      color: 'white',
-      padding: '15px 32px',
-      display: 'inline-block',
-      cursor: 'pointer'
-  };
     let persons = null;
-
+    let btnClass = '';
+    let powerStatus = this.state.power;
     if (this.state.showPerson){
       persons = (
         <div>
@@ -85,12 +73,12 @@ deleteNameHandler = (nameIndex) => {
             name={person.name}
             age={person.age}
             key={person.id}
-            changed={(event) => this.powerHandler(event, person.id)}/>
+            changed={(event) => this.nameChangeHandler(event, person.id)}/>
           })}
         </div>
       );
-
-      style.backgroundColor = 'red';
+      btnClass = classes.Red
+      powerStatus = 'Power Off';
 
     }
 
@@ -107,8 +95,8 @@ deleteNameHandler = (nameIndex) => {
         <h1>This is My First React App</h1>
         <p className={assignedClasses.join(' ')}>This is working alright</p>
           <button
-            style={style}
-            onClick={this.toggleHandler}>Power on</button>
+            className={btnClass}
+            onClick={this.toggleHandler}>{powerStatus}</button>
         {persons}
       </div>
     );
