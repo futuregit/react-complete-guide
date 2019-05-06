@@ -3,6 +3,7 @@ import classes from './App.css';
 import Person from './Person/Person';
 import UserInput from './UserInput/UserInput';
 import UserOutput from './UserOutput/UserOutput';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 class App extends Component {
   state = {
     persons: [
@@ -21,21 +22,23 @@ toggleHandler = () => {
   this.setState({showPerson: !reveal})
 };
 
-//
+//Function to change displayed name
 nameChangeHandler = (event, id) => {
+    //Get the index of the persons array and assign to personIndex
     const personIndex = this.state.persons.findIndex(p => {
       return p.id === id;
     });
-
+    //Copy this one array to person
     const person = {
       ...this.state.persons[personIndex]
     }
 
     //An alternative to copying an object without reference.
     //const person = Object.assign({}, this.state.persons[personIndex]);
-
+    //Set the new name to person property name
     person.name = event.target.value;
 
+    //Copy current state to constant persons and overwrite contant key with person
     const persons = [...this.state.persons];
     persons[personIndex] = person;
 
@@ -49,7 +52,7 @@ userNameChange = (event) => {
 
 deleteNameHandler = (nameIndex) => {
   //This is the same as the slice method, but it is more modern Es6 approach.
-  // It uses ES6 spread operator.
+  //It uses ES6 spread operator.
   const persons = [...this.state.persons]
   //Use this as the original is not mutated.
   //const persons = this.state.persons.slice();
@@ -65,15 +68,20 @@ deleteNameHandler = (nameIndex) => {
     let btnClass = '';
     let powerStatus = this.state.power;
     if (this.state.showPerson){
+      //Store JSX into persons variable
       persons = (
         <div>
           {this.state.persons.map((person, index) => {
-            return <Person
-            click={() => this.deleteNameHandler(index)}
-            name={person.name}
-            age={person.age}
-            key={person.id}
-            changed={(event) => this.nameChangeHandler(event, person.id)}/>
+            //Watch putting JSX <ErrorBoundary> on next line. It causes errors.
+            //Possibly related to JavaScript ASI(Automatic Semicolon Insertion)
+            return <ErrorBoundary key={person.id}>
+                <Person
+                  click={() => this.deleteNameHandler(index)}
+                  name={person.name}
+                  age={person.age}
+                  //Get the event object and pass in the person.id of this item
+                  changed={(event) => this.nameChangeHandler(event, person.id)}/>
+              </ErrorBoundary>
           })}
         </div>
       );
