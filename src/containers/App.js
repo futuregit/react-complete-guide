@@ -6,6 +6,10 @@ import UserInput from '../components/UserInput/UserInput';
 import UserOutput from '../components/UserOutput/UserOutput';
 import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 class App extends Component {
+  constructor(props){
+    super(props);
+    console.log("Inside App.js constructor")
+  }
   state = {
     persons: [
       { id: 'riker', name: 'Arnold',age: Math.round(Math.random(30)* 40)},
@@ -17,50 +21,63 @@ class App extends Component {
     power: 'Power On'
   }
 
-toggleHandler = () => {
-  const reveal = this.state.showPerson;
-  const powerSwitch = this.state.showPerson? 'Power On' : 'Power Off';
-  this.setState({showPerson: !reveal, power: powerSwitch})
-};
+  static getDerivedStateFromProps(props, state){
+    console.log("Inside App.js getDerivedStateFromProps", props);
+    return state;
+  }
 
-//Function to change displayed name
-nameChangeHandler = (event, id) => {
-    //Get the index of the persons array and assign to personIndex
-    const personIndex = this.state.persons.findIndex(p => {
-      return p.id === id;
-    });
-    //Copy this one array to person
-    const person = {
-      ...this.state.persons[personIndex]
-    }
-    //An alternative to copying an object without reference.
-    //const person = Object.assign({}, this.state.persons[personIndex]);
-    //Set the new name to person property name
-    person.name = event.target.value;
-    //Copy current state to constant persons and overwrite contant key with person
-    const persons = [...this.state.persons];
-    persons[personIndex] = person;
-    this.setState({persons: persons});
-};
+  componentDidMount(){
+    console.log("Inside App.js componentDidMount");
+  }
 
-userNameChange = (event) => {
-  this.setState({username: event.target.value});
-};
+  //Depreciated. Do not use.
+  // componentWillMount(){
+  //   console.log("Inside App.js componentWillMount");
+  // }
+  toggleHandler = () => {
+    const reveal = this.state.showPerson;
+    const powerSwitch = this.state.showPerson? 'Power On' : 'Power Off';
+    this.setState({showPerson: !reveal, power: powerSwitch})
+  };
 
-deleteNameHandler = (nameIndex) => {
-  //This is the same as the slice method, but it is more modern Es6 approach.
-  //It uses ES6 spread operator.
-  const persons = [...this.state.persons]
-  //Use this as the original object is not mutated.
-  //const persons = this.state.persons.slice();
-  //Below mutate orginal object. Avoid this.
-  // const persons = this.state.persons;
-  persons.splice(nameIndex, 1);
-  this.setState({persons:persons})
-}
+  //Function to change displayed name
+  nameChangeHandler = (event, id) => {
+      //Get the index of the persons array and assign to personIndex
+      const personIndex = this.state.persons.findIndex(p => {
+        return p.id === id;
+      });
+      //Copy this one array to person
+      const person = {
+        ...this.state.persons[personIndex]
+      }
+      //An alternative to copying an object without reference.
+      //const person = Object.assign({}, this.state.persons[personIndex]);
+      //Set the new name to person property name
+      person.name = event.target.value;
+      //Copy current state to constant persons and overwrite contant key with person
+      const persons = [...this.state.persons];
+      persons[personIndex] = person;
+      this.setState({persons: persons});
+  };
+
+  userNameChange = (event) => {
+    this.setState({username: event.target.value});
+  };
+
+  deleteNameHandler = (nameIndex) => {
+    //This is the same as the slice method, but it is more modern Es6 approach.
+    //It uses ES6 spread operator.
+    const persons = [...this.state.persons]
+    //Use this as the original object is not mutated.
+    //const persons = this.state.persons.slice();
+    //Below mutate orginal object. Avoid this.
+    // const persons = this.state.persons;
+    persons.splice(nameIndex, 1);
+    this.setState({persons:persons})
+  }
 
   render() {
-
+    console.log("Inside App.js render");
     let persons = null;
     if (this.state.showPerson){
       //Store JSX into persons variable

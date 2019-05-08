@@ -3,6 +3,7 @@ import ErrorBoundary from '../../containers/ErrorBoundary/ErrorBoundary';
 import Person from './Person/Person';
 
 const persons = (props) => props.persons.map((person, index) => {
+  console.log("Inside Persons.js render");
     //Watch putting JSX <ErrorBoundary> on next line. It causes errors.
     //Possibly related to JavaScript ASI(Automatic Semicolon Insertion)
     return <ErrorBoundary key={person.id}>

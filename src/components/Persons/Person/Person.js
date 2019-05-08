@@ -2,6 +2,7 @@ import React from 'react';
 import  classes from './Person.css';
 
 const person = (props) => {
+  console.log("Inside Person.js render")
   // const rnd = Math.random();
   //
   // if (rnd > 0.7) {
