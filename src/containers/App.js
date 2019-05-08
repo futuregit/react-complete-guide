@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classes from './App.css';
-import Person from '../components/Persons/Person/Person';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 import UserInput from '../components/UserInput/UserInput';
 import UserOutput from '../components/UserOutput/UserOutput';
 import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
@@ -18,8 +19,8 @@ class App extends Component {
 
 toggleHandler = () => {
   const reveal = this.state.showPerson;
-  console.log(reveal)
-  this.setState({showPerson: !reveal})
+  const powerSwitch = this.state.showPerson? 'Power On' : 'Power Off';
+  this.setState({showPerson: !reveal, power: powerSwitch})
 };
 
 //Function to change displayed name
@@ -32,19 +33,15 @@ nameChangeHandler = (event, id) => {
     const person = {
       ...this.state.persons[personIndex]
     }
-
     //An alternative to copying an object without reference.
     //const person = Object.assign({}, this.state.persons[personIndex]);
     //Set the new name to person property name
     person.name = event.target.value;
-
     //Copy current state to constant persons and overwrite contant key with person
     const persons = [...this.state.persons];
     persons[personIndex] = person;
-
     this.setState({persons: persons});
 };
-
 
 userNameChange = (event) => {
   this.setState({username: event.target.value});
@@ -54,7 +51,7 @@ deleteNameHandler = (nameIndex) => {
   //This is the same as the slice method, but it is more modern Es6 approach.
   //It uses ES6 spread operator.
   const persons = [...this.state.persons]
-  //Use this as the original is not mutated.
+  //Use this as the original object is not mutated.
   //const persons = this.state.persons.slice();
   //Below mutate orginal object. Avoid this.
   // const persons = this.state.persons;
@@ -65,46 +62,22 @@ deleteNameHandler = (nameIndex) => {
   render() {
 
     let persons = null;
-    let btnClass = '';
-    let powerStatus = this.state.power;
     if (this.state.showPerson){
       //Store JSX into persons variable
-      persons = (
-        <div>
-          {this.state.persons.map((person, index) => {
-            //Watch putting JSX <ErrorBoundary> on next line. It causes errors.
-            //Possibly related to JavaScript ASI(Automatic Semicolon Insertion)
-            return <ErrorBoundary key={person.id}>
-                <Person
-                  click={() => this.deleteNameHandler(index)}
-                  name={person.name}
-                  age={person.age}
-                  //Get the event object and pass in the person.id of this item
-                  changed={(event) => this.nameChangeHandler(event, person.id)}/>
-              </ErrorBoundary>
-          })}
-        </div>
-      );
-      btnClass = classes.Red
-      powerStatus = 'Power Off';
-
+      persons = <Persons
+          persons={this.state.persons}
+          clicked={this.deleteNameHandler}
+          changed={this.nameChangeHandler}  />;
     }
 
-    // let classes = ['red', 'bold'].join(' ');
-    const assignedClasses =[];
-    if(this.state.persons.length <= 2){
-      assignedClasses.push(classes.red);
-    }
-    if(this.state.persons.length <= 1){
-      assignedClasses.push(classes.bold);
-    }
     return (
       <div className={classes.App}>
-        <h1>This is My First React App</h1>
-        <p className={assignedClasses.join(' ')}>This is working alright</p>
-          <button
-            className={btnClass}
-            onClick={this.toggleHandler}>{powerStatus}</button>
+        <Cockpit
+          title={this.props.appTitle}
+          showPerson={this.state.showPerson}
+          persons={this.state.persons}
+          powerStatus={this.state.power}
+          clicked={this.toggleHandler}/>
         {persons}
       </div>
     );
