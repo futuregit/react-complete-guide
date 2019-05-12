@@ -3,9 +3,28 @@ import ErrorBoundary from '../../containers/ErrorBoundary/ErrorBoundary';
 import Person from './Person/Person';
 
 class Persons extends Component {
+  // static getDerivedStateFromProps(props, state){
+  //   console.log("Inside Persons.js getDerivedStateFromProps", props);
+  //   return state;
+  // }
+  // componentWillReceiveProps(props){
+  //   console.log("Inside Persons.js componentWillReceiveProps", props)
+  // }
+  shouldComponentUpdate(nextProps,nextState){
+    console.log("Inside Persons.js shouldComponentUpdate");
+    return true;
+  }
+  getSnapshotBeforeUpdate(prevProps, prevState){
+    console.log("Inside Persons.js getSnapShotBeforeUpdate");
+    return {message: 'Snapshot!'};
+  }
+  componentDidUpdate(prevProps, prevState, snapshot){
+    console.log("Inside Persons.js componentDidUpdate");
+    console.log(snapshot);
+  }
   render() {
-    return this.props.persons.map((person, index) => {
     console.log("Inside Persons.js render");
+    return this.props.persons.map((person, index) => {
       //Watch putting JSX <ErrorBoundary> on next line. It causes errors.
       //Possibly related to JavaScript ASI(Automatic Semicolon Insertion)
       return <ErrorBoundary key={person.id}>

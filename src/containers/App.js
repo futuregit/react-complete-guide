@@ -29,7 +29,13 @@ class App extends Component {
   componentDidMount(){
     console.log("Inside App.js componentDidMount");
   }
-
+  shouldComponentUpdate(nextProps, nextState){
+    console.log("Inside App.js shouldComponentUpdate");
+    return true;
+  }
+  componentDidUpdate(){
+    console.log("Inside App.js componentDidUpdate");
+  }
   //Depreciated. Do not use.
   // componentWillMount(){
   //   console.log("Inside App.js componentWillMount");

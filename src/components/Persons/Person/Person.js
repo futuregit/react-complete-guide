@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
 import  classes from './Person.css';
 
+
 class Person extends Component {
+  componentDidMount(){
+    console.log("Inside Person.js componentDidMount");
+  }
+  componentDidUpdate(){
+    console.log("Inside Person.js componentDidUpdate");
+  }
+
+
   render(){
     console.log("Inside Person.js render")
     // const rnd = Math.random();
