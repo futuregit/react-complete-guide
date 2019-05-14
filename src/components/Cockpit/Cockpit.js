@@ -1,17 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import classes from './Cockpit.css';
 
 const cockpit = (props) => {
+  useEffect(()=> {
+    console.log("Inside Cockpit useEffect");
+    //Http request...
+    const timer = setTimeout(()=> {
+      alert('Saved data to the cloud')
+    }, 1000);
+    return () => {
+      clearTimeout(timer)
+      console.log("Inside Cockpit cleanup work")
+    }
+  },[])
+
+  useEffect(()=> {
+    console.log("Inside Cockpit 2nd useEffect");
+    return () => {
+      console.log("Inside Cockpit 2nd cleanup work")
+    }
+  })
   // let classes = ['red', 'bold'].join(' ');
   const assignedClasses =[];
   let btnClass = '';
   if(props.showPerson){
       btnClass = classes.Red;
   }
-  if(props.persons.length <= 2){
+  if(props.personsLength <= 2){
     assignedClasses.push(classes.red);
   }
-  if(props.persons.length <= 1){
+  if(props.personsLength <= 1){
     assignedClasses.push(classes.bold);
   }
   return (
@@ -25,4 +43,4 @@ const cockpit = (props) => {
   );
 }
 
-export default cockpit;
+export default React.memo(cockpit);

@@ -18,6 +18,7 @@ class App extends Component {
     ],
     username: "Admin",
     showPerson: false,
+    showCockpit: true,
     power: 'Power On'
   }
 
@@ -95,12 +96,19 @@ class App extends Component {
 
     return (
       <div className={classes.App}>
-        <Cockpit
+      <button
+        onClick={()=> {
+          this.setState({showCockpit: false});
+        }}
+        >
+        Remove Cockpit</button>
+        {this.state.showCockpit ? <Cockpit
           title={this.props.appTitle}
           showPerson={this.state.showPerson}
-          persons={this.state.persons}
+          personsLength={this.state.persons.length}
           powerStatus={this.state.power}
           clicked={this.toggleHandler}/>
+        : null }
         {persons}
       </div>
     );
