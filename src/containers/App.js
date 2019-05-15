@@ -5,6 +5,8 @@ import Cockpit from '../components/Cockpit/Cockpit';
 import UserInput from '../components/UserInput/UserInput';
 import UserOutput from '../components/UserOutput/UserOutput';
 import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
+import withClass from '../hoc/withClass';
+import Auxilliary from '../hoc/Auxilliary';
 class App extends Component {
   constructor(props){
     super(props);
@@ -95,7 +97,7 @@ class App extends Component {
     }
 
     return (
-      <div className={classes.App}>
+      <Auxilliary>
       <button
         onClick={()=> {
           this.setState({showCockpit: false});
@@ -110,9 +112,9 @@ class App extends Component {
           clicked={this.toggleHandler}/>
         : null }
         {persons}
-      </div>
+      </Auxilliary>
     );
   }
 }
 
-export default App;
+export default withClass(App, classes.App);

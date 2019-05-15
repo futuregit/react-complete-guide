@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import ErrorBoundary from '../../containers/ErrorBoundary/ErrorBoundary';
 import Person from './Person/Person';
 
-class Persons extends Component {
+class Persons extends PureComponent {
   // static getDerivedStateFromProps(props, state){
   //   console.log("Inside Persons.js getDerivedStateFromProps", props);
   //   return state;
@@ -10,15 +10,15 @@ class Persons extends Component {
   // componentWillReceiveProps(props){
   //   console.log("Inside Persons.js componentWillReceiveProps", props)
   // }
-  shouldComponentUpdate(nextProps,nextState){
-    console.log("Inside Persons.js shouldComponentUpdate");
-    // if(nextProps.persons !== this.props.persons){
-    //   return true;
-    // } else {
-    //   return false
-    // }
-    return true;
-  }
+  // shouldComponentUpdate(nextProps,nextState){
+  //   console.log("Inside Persons.js shouldComponentUpdate");
+  //   // if(nextProps.persons !== this.props.persons){
+  //   //   return true;
+  //   // } else {
+  //   //   return false
+  //   // }
+  //   return true;
+  // }
   getSnapshotBeforeUpdate(prevProps, prevState){
     console.log("Inside Persons.js getSnapShotBeforeUpdate");
     return {message: 'Snapshot!'};

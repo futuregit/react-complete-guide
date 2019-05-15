@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import  classes from './Person.css';
-
+import Auxilliary from '../../../hoc/Auxilliary';
+import withClass from '../../../hoc/withClass';
 
 class Person extends Component {
   componentDidMount(){
@@ -19,15 +20,20 @@ class Person extends Component {
     //   throw new Error('Something went wrong');
     // }
     return (
-      <div className={classes.Person}>
-        <p onClick={this.props.click}>This is the person module and the name chosen is {this.props.name}</p>
+      <Auxilliary>
+        <p onClick={this.props.click}>
+          This is the person module and the name chosen is {this.props.name}
+        </p>
         <p>Wow that was easy {this.props.age}</p>
         <p>{this.props.children}</p>
-        <input type="test" onChange={this.props.changed} value={this.props.name} />
-      </div>
-    )
+        <input
+        type="text"
+        onChange={this.props.changed}
+        value={this.props.name} />
+      </Auxilliary>
+    );
   }
 
 };
 
-export default Person;
+export default withClass(Person, classes.Person);
