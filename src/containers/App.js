@@ -21,6 +21,7 @@ class App extends Component {
     username: "Admin",
     showPerson: false,
     showCockpit: true,
+    changeCounter: 0,
     power: 'Power On'
   }
 
@@ -66,7 +67,13 @@ class App extends Component {
       //Copy current state to constant persons and overwrite contant key with person
       const persons = [...this.state.persons];
       persons[personIndex] = person;
-      this.setState({persons: persons});
+      this.setState((prevState, props) => {
+        return {
+          persons: persons,
+          changeCounter: prevState.changeCounter + 1
+        }
+        });
+
   };
 
   userNameChange = (event) => {
