@@ -42,7 +42,9 @@ class Persons extends PureComponent {
             name={person.name}
             age={person.age}
             //Get the event object and pass in the person.id of this item
-            changed={(event) => this.props.changed(event, person.id)}/>
+            changed={(event) => this.props.changed(event, person.id)}
+            isAuth={this.props.isAutenticated}
+          />
         </ErrorBoundary>
     });
   }

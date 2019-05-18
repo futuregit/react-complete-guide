@@ -22,6 +22,7 @@ class App extends Component {
     showPerson: false,
     showCockpit: true,
     changeCounter: 0,
+    authenticated: false,
     power: 'Power On'
   }
 
@@ -49,6 +50,10 @@ class App extends Component {
     const powerSwitch = this.state.showPerson? 'Power On' : 'Power Off';
     this.setState({showPerson: !reveal, power: powerSwitch})
   };
+
+  loginHandler = () => {
+    this.setState({authenticated: true});
+  }
 
   //Function to change displayed name
   nameChangeHandler = (event, id) => {
@@ -97,10 +102,14 @@ class App extends Component {
     let persons = null;
     if (this.state.showPerson){
       //Store JSX into persons variable
-      persons = <Persons
+      persons = (
+        <Persons
           persons={this.state.persons}
           clicked={this.deleteNameHandler}
-          changed={this.nameChangeHandler}  />;
+          changed={this.nameChangeHandler}
+          isAutenticated={this.state.authenticated}
+        />
+          )
     }
 
     return (
@@ -116,7 +125,8 @@ class App extends Component {
           showPerson={this.state.showPerson}
           personsLength={this.state.persons.length}
           powerStatus={this.state.power}
-          clicked={this.toggleHandler}/>
+          clicked={this.toggleHandler}
+          login={this.loginHandler}/>
         : null }
         {persons}
       </Auxilliary>

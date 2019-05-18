@@ -28,6 +28,7 @@ class Person extends Component {
     // }
     return (
       <Auxilliary>
+        {this.props.isAuth ? <p>Authenticated</p> : <p> Please Login </p>}
         <p onClick={this.props.click}>
           This is the person module and the name chosen is {this.props.name}
         </p>
