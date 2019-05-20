@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import  classes from './Person.css';
 import Auxilliary from '../../../hoc/Auxilliary';
 import withClass from '../../../hoc/withClass';
+import AuthContext from '../../../context/auth-context';
 
 class Person extends Component {
   constructor(props){
@@ -28,7 +29,11 @@ class Person extends Component {
     // }
     return (
       <Auxilliary>
-        {this.props.isAuth ? <p>Authenticated</p> : <p> Please Login </p>}
+        <AuthContext.Consumer>
+          {context =>
+            context.authenticated ? <p>Authenticated</p> : <p> Please Login </p>
+          }
+        </AuthContext.Consumer>
         <p onClick={this.props.click}>
           This is the person module and the name chosen is {this.props.name}
         </p>

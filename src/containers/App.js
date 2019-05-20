@@ -7,6 +7,8 @@ import UserOutput from '../components/UserOutput/UserOutput';
 import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 import withClass from '../hoc/withClass';
 import Auxilliary from '../hoc/Auxilliary';
+import AuthContext from '../context/auth-context';
+
 class App extends Component {
   constructor(props){
     super(props);
@@ -53,6 +55,7 @@ class App extends Component {
 
   loginHandler = () => {
     this.setState({authenticated: true});
+    console.log("Inside App.js loginHandler")
   }
 
   //Function to change displayed name
@@ -107,7 +110,7 @@ class App extends Component {
           persons={this.state.persons}
           clicked={this.deleteNameHandler}
           changed={this.nameChangeHandler}
-          isAutenticated={this.state.authenticated}
+          isAuthenticated={this.state.authenticated}
         />
           )
     }
@@ -120,15 +123,22 @@ class App extends Component {
         }}
         >
         Remove Cockpit</button>
-        {this.state.showCockpit ? <Cockpit
-          title={this.props.appTitle}
-          showPerson={this.state.showPerson}
-          personsLength={this.state.persons.length}
-          powerStatus={this.state.power}
-          clicked={this.toggleHandler}
-          login={this.loginHandler}/>
-        : null }
-        {persons}
+        <AuthContext.Provider
+          value={{
+            authenticated: this.state.authenticated,
+            login: this.loginHandler
+          }}
+        >
+          {this.state.showCockpit ? <Cockpit
+            title={this.props.appTitle}
+            showPerson={this.state.showPerson}
+            personsLength={this.state.persons.length}
+            powerStatus={this.state.power}
+            clicked={this.toggleHandler}
+          />
+          : null }
+          {persons}
+        </AuthContext.Provider>
       </Auxilliary>
     );
   }
