@@ -1,8 +1,19 @@
 import React, { PureComponent } from 'react';
 import ErrorBoundary from '../../containers/ErrorBoundary/ErrorBoundary';
 import Person from './Person/Person';
+import AuthContext from '../../context/auth-context';
 
 class Persons extends PureComponent {
+  constructor(props){
+    super(props);
+
+  }
+  //React 16.6 and higher
+  static contextType = AuthContext;
+
+  componentDidMount(){
+    console.log("The value of the context is", this.context);
+  }
   // static getDerivedStateFromProps(props, state){
   //   console.log("Inside Persons.js getDerivedStateFromProps", props);
   //   return state;

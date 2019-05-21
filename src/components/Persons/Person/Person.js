@@ -10,8 +10,12 @@ class Person extends Component {
     super(props);
     this.inputElementRef = React.createRef();
   }
+
+  static contextType = AuthContext;
+
   componentDidMount(){
     console.log("Inside Person.js componentDidMount");
+    console.log("Inside Person.js context ", this.context.authenticated)
     // this.inputElement.focus();
     this.inputElementRef.current.focus();
   }
@@ -29,11 +33,11 @@ class Person extends Component {
     // }
     return (
       <Auxilliary>
-        <AuthContext.Consumer>
-          {context =>
-            context.authenticated ? <p>Authenticated</p> : <p> Please Login </p>
+
+          {
+            this.context.authenticated ? <p>Authenticated</p> : <p> Please Login </p>
           }
-        </AuthContext.Consumer>
+
         <p onClick={this.props.click}>
           This is the person module and the name chosen is {this.props.name}
         </p>
